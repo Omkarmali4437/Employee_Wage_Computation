@@ -12,7 +12,8 @@ numberofworkingdays=20;
 #variables
 totalworkingdays=0;
 totalworkkhrs=0;
-#randomcheck=$(( RANDOM%3 ))
+
+declare -A Dailywage
 
 function getworkhrs(){
 	case $1 in
@@ -35,9 +36,10 @@ do
 	((totalworkingdays++))
 	employeehrs="$(getworkhrs $((RANDOM%3)) )"
 	totalworkhrs=$(($totalworkhrs+$employeehrs))
-	Dailywage[$totalworkingdays]=$(($Wageperhour*$employeehrs))
+	Dailywage["Day $totalworkingdays"]=$(($Wageperhour*$employeehrs))
 	Monthlywage=$(($Wageperhour*$totalworkhrs*$totalworkingdays))
 done
 
 echo "Monthly wage of a employee is: "$Monthlywage
 echo "Daily wage of a employee is: " ${Dailywage[@]}
+echo ${!Dailywage[@]}
