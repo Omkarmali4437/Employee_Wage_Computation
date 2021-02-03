@@ -3,23 +3,24 @@
 echo "Welcome to Employee Wage computation Problem"
 
 Wageperhour=20;
+isFulltime=1;
+isParttime=2;
 
 randomcheck=$(( RANDOM%3 ))
-if [[ $randomcheck -eq 1 ]]
-then
-	echo "Employee is Full Time"
-	employeehrs=8;
-	Dailywage=$(($Wageperhour*$employeehrs))
-	echo $Dailywage
-elif [[ $randomcheck -eq 2 ]]
-then
-	echo "Employee is Part Time"
-	employeehrs=4;
-	Dailywage=$(($Wageperhour*$employeehrs))
-	echo $Dailywage
-else
-	echo "Employee is Absent"
-	employeehrs=0;
-	Dailywage=$(($Wageperhour*$employeehrs))
-	echo $Dailywage
-fi
+
+case $randomcheck in
+	$isFulltime)
+		echo "Employee is Full Time"
+		employeehrs=8;
+		;;
+	$isParttime)
+		echo "Employee is Part Time"
+		employeehrs=4;
+		;;
+	*)
+		echo "Employee is Absent"
+		employeehrs=0;
+		;;
+esac
+Dailywage=$(($Wageperhour*$employeehrs))
+echo $Dailywage
