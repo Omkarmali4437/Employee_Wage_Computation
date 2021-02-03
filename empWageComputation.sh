@@ -2,12 +2,16 @@
 
 echo "Welcome to Employee Wage computation Problem"
 
+#Constants
 Wageperhour=20;
 isFulltime=1;
 isParttime=2;
+maximumhrs=100;
 numberofworkingdays=20;
-totalworkingdays=0;
 
+#variables
+totalworkingdays=0;
+totalworkkhrs=0;
 randomcheck=$(( RANDOM%3 ))
 
 case $randomcheck in
@@ -24,11 +28,12 @@ case $randomcheck in
 		employeehrs=0;
 		;;
 esac
-while [[ $totalworkingdays -lt $numberofworkingdays ]]
+while [[ $totalworkingdays -lt $numberofworkingdays &&
+	$totalworkhrs -lt $maximumhrs ]]
 do
 	((totalworkingdays++))
-	Dailywage=$(($Wageperhour*$employeehrs))
-	Monthlywage=$(($Wageperhour*$employeehrs*$totalworkingdays))
+	totalworkhrs=$(($totalworkhrs+$employeehrs))
+	Monthlywage=$(($Wageperhour*$totalworkhrs*$totalworkingdays))
 done
-echo "Daily wage of a employee is: "$Dailywage
+
 echo "Monthly wage of a employee is: "$Monthlywage
