@@ -5,6 +5,8 @@ echo "Welcome to Employee Wage computation Problem"
 Wageperhour=20;
 isFulltime=1;
 isParttime=2;
+numberofworkingdays=20;
+totalworkingdays=0;
 
 randomcheck=$(( RANDOM%3 ))
 
@@ -22,5 +24,11 @@ case $randomcheck in
 		employeehrs=0;
 		;;
 esac
-Dailywage=$(($Wageperhour*$employeehrs))
-echo $Dailywage
+while [[ $totalworkingdays -lt $numberofworkingdays ]]
+do
+	((totalworkingdays++))
+	Dailywage=$(($Wageperhour*$employeehrs))
+	Monthlywage=$(($Wageperhour*$employeehrs*$totalworkingdays))
+done
+echo "Daily wage of a employee is: "$Dailywage
+echo "Monthly wage of a employee is: "$Monthlywage
