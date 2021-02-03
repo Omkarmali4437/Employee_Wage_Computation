@@ -14,24 +14,26 @@ totalworkingdays=0;
 totalworkkhrs=0;
 randomcheck=$(( RANDOM%3 ))
 
-case $randomcheck in
-	$isFulltime)
-		echo "Employee is Full Time"
-		employeehrs=8;
-		;;
-	$isParttime)
-		echo "Employee is Part Time"
-		employeehrs=4;
-		;;
-	*)
-		echo "Employee is Absent"
-		employeehrs=0;
-		;;
-esac
+function getworkhrs(){
+	case $1 in
+		$isFulltime)
+			employeehrs=8;
+			;;
+		$isParttime)
+			employeehrs=4;
+			;;
+		*)
+			employeehrs=0;
+			;;
+	esac
+	echo $employeehrs
+}
+
 while [[ $totalworkingdays -lt $numberofworkingdays &&
 	$totalworkhrs -lt $maximumhrs ]]
 do
 	((totalworkingdays++))
+	employeehrs="$(getworkhrs $randomcheck)"
 	totalworkhrs=$(($totalworkhrs+$employeehrs))
 	Monthlywage=$(($Wageperhour*$totalworkhrs*$totalworkingdays))
 done
